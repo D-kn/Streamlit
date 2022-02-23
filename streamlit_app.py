@@ -1,0 +1,27 @@
+import yfinance as yf
+import streamlit as st
+import pandas as pd
+
+st.write(""""
+## Simple Stock Price App
+
+Shown are the stock **closing price** and ***volume*** of Google !
+
+""")
+
+tickerSymbol = 'GOOGL'
+
+tickerData = yf.Ticker(tickerSymbol)
+
+tickerDf = tickerData.history(period='1d', start='2010-1-25', end='2020-1-25')
+
+# print(tickerDf.columns)
+
+st.write("""
+#### Closing Price
+""")
+st.line_chart(tickerDf.Close)
+st.write("""
+#### Volume Price
+""")
+st.line_chart(tickerDf.Volume)
