@@ -16,7 +16,7 @@ This app predicts the **Palmer Penguin** species!
 st.sidebar.header('User Input Features')
 
 st.sidebar.markdown("""
-# [Example CSV input file]('https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json')
+# [Example CSV input file](https://github.com/D-kn)
 """)
 
 # User input into dataframe
@@ -44,7 +44,7 @@ else:
         features = pd.DataFrame(data, index=[0])
         return features
 
-input_df = user_input_features()
+    input_df = user_input_features()
 
 # combine user input features with entire penguis dataset
 penguins_raw = pd.read_csv('penguins_dataset.csv')
@@ -65,7 +65,6 @@ st.subheader('User Input Features')
 
 if uploaded_file is not None:
     st.write(df)
-
 else:
     st.write('Awaiting CSV file to be uploaded. Currently using example input parameters (shown below)')
     st.write(df)

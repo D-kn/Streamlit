@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
- 
+from sklearn.ensemble import RandomForestClassifier
+import pickle
+
 
 penguins = pd.read_csv('./penguins_dataset.csv')
 
@@ -15,12 +17,13 @@ for col in encode:
     df = pd.concat([df, dummy], axis=1)
     del df[col]
 
-target_mapper = {'Adelie':0, 'Gentoo':1, 'Chinstrap':2}
-def target_encode(val):
-    return target_mapper[val]
+# target_mapper = {'Adelie':0, 'Gentoo':1, 'Chinstrap':2}
+# def target_encode(val):
+#     return target_mapper[val]
+# df['species'] = df['species'].apply(target_encode)
 
-
-df['species'] = df['species'].apply(target_encode)
+# encoding species values
+df['species'] = df['species'].map({'Adelie':0, 'Gentoo':1, 'Chinstrap':2})
 
 
 # Defining X and y variables
@@ -29,13 +32,9 @@ y = df['species']
 
 
 # Model Building : Random Forest
-from sklearn.ensemble import RandomForestClassifier
-
 model = RandomForestClassifier()
 model.fit(X, y)
 
 
 # Save the model
-import pickle
-
 pickle.dump(model, open('penguins_model.pkl', 'wb'))
