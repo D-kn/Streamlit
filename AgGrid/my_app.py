@@ -1,4 +1,3 @@
-from turtle import up
 import streamlit as st
 import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode
@@ -6,14 +5,18 @@ from st_aggrid.grid_options_builder import GridOptionsBuilder
 
 
 # file uploading
-file = st.sidebar.file_uploader("Upload a file")
+file_format = st.sidebar.radio('Select file format : ', options=['csv', 'excel'], key='file_format')
+data = st.sidebar.file_uploader(label = '')
 
-if not file is None:
+if not data is None:
     @st.cache
     def upload_file():
-        df = pd.read_csv(file)
+        if file_format == 'csv':
+            df = pd.read_csv(data)
+        else:
+            df = pd.read_excel(data)
         return df.loc[:100, :]
-
+        
     df = upload_file()
 
     st.write('''### Streamlit DataFrame type''')
@@ -31,8 +34,8 @@ if not file is None:
                             update_mode=GridUpdateMode.SELECTION_CHANGED,
                             height=450, 
                             allow_unsafe_jscode=True, 
-                            theme='blue')
+                            theme='light')
 
-    sel_row = grid_table["selected_rows"]
-    st.write(sel_row)
+    select_row = grid_table["selected_rows"]
+    st.write(select_row)
 
