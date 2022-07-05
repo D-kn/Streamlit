@@ -7,13 +7,14 @@ from st_aggrid.grid_options_builder import GridOptionsBuilder
 #          'coral', 'cornflowerblue', 'darkblue', 'crimson', 'darkcyan','darkgoldenrod', 'cyan','darkblue']
 
 # file uploading
-file_format = st.sidebar.radio('Select file format : ', options=['csv', 'excel'], key='file_format')
-data = st.sidebar.file_uploader(label = '')
+options=['csv', 'xlsx']
+file_format = st.sidebar.radio('Select file format : ', options=options, key='file_format')
+data = st.sidebar.file_uploader(label = '', type=file_format)
 
 if not data is None:
     @st.cache
     def upload_file():
-            if file_format=='csv':
+            if file_format==options[0]:
                 df = pd.read_csv(data)
             else:
                 df = pd.read_excel(data)
